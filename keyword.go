@@ -14,6 +14,22 @@ const (
 	CHARS_COUNT = 27
 )
 
+var _G *KeyWord
+
+func init() {
+	_G = NewKeyWord()
+}
+
+//关键字查询
+func Search(str string) bool {
+	return _G.Search(str)
+}
+
+//设置全局关键字
+func SetGlobal(key *KeyWord) {
+	_G = key
+}
+
 type KeyWord struct {
 	SHIFT    map[string]*Shift   // key:字符块
 	KEYS     []string            //所有匹配串

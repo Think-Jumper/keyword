@@ -8,8 +8,6 @@ import (
 	"github.com/zxfonline/keyword"
 )
 
-var _badWords *keyword.KeyWord
-
 func main() {
 	csvconfig.Init("", "")
 	err1 := csvconfig.Load([]string{"badwords"})
@@ -25,15 +23,12 @@ func main() {
 	}
 	kword := keyword.NewKeyWord()
 	kword.Init(words)
-	_badWords = kword
+	keyword.SetGlobal(kword)
 	bol := haveBadWords("fuck")
 	fmt.Println(bol)
 }
 
 func haveBadWords(str string) bool {
-	if _badWords == nil {
-		return false
-	}
 	lower := strings.ToLower(str)
-	return _badWords.Search(lower)
+	return keyword.Search(lower)
 }
